@@ -6,7 +6,8 @@ JC = javac
 
 CLASSES = \
 	Calculadora.java \
-	Teste.java
+	Teste.java \
+	Main.java
 
 default: classes
 

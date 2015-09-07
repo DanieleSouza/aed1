@@ -12,8 +12,8 @@ public class Teste {
 			String temp = input.next();
 
 			if(temp.equals("quit")) System.exit(0);
-			if(temp.matches("[0-9]+")) calc.inteiro(Integer.parseInt( temp));
-			if(temp.equals("contador")) System.out.println("A calculadora possui " + calc.contador() + " números armazenados");
+			if(temp.matches("[0-9]+")) calc.push(Integer.parseInt( temp));
+			if(temp.equals("contador")) System.out.println("A calculadora possui " + calc.cont() + " números armazenados");
 			if(temp.equals("+")) calc.soma();
 			if(temp.equals("*")) calc.multiplicacao();
 			if(temp.equals("-")) calc.subtracao();
@@ -24,6 +24,13 @@ public class Teste {
 			if(temp.equals("dup")) calc.dup();
 			if(temp.equals("pop")) System.out.println("O número " + calc.pop() + " foi removido da calculadora");
 			if(temp.equals("swap")) calc.swap();
+			if(temp.equals("estatisticas")) {
+				System.out.println("-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-");
+				System.out.println("Tamanho final máximo atingido pela pilha: " + calc.max());
+				System.out.println("Tamanho final da pilha: " + calc.cont());
+				System.out.println("Valor no topo da pilha: " + calc.peek());
+				System.out.println("-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-x-");
+			}
 
 			calc.print();
 		}

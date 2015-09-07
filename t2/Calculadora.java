@@ -3,13 +3,13 @@ import java.lang.Math.*;
 public class Calculadora {
 	
 	private Node first;
-
+	int cont, max;
 
 	public static class Node {
 		Node next;
-		float data;
+		double data;
 
-		Node(float newData) {
+		Node(double newData) {
 			data = newData;
 			next = null;
 		}
@@ -17,78 +17,78 @@ public class Calculadora {
 
 	public Calculadora() {
 		first = null;
-
+		cont = 0;
+		max = 0;
 	}
 
-	public void inteiro(float n) {
+	public void push(double n) {
 		Node aux = new Node (n);
 		aux.next = first;
 		first = aux;
+		cont++;
+		if (cont > max) max = cont;
 	}
 
-	public int contador() {
-		return contador(first);
+	public int cont() {
+		return cont;
 	}
 
-	private int contador(Node p) {
+	public int max() {
+		return max;
+	}
+
+	public double peek() {
+		return first.data;
+	}
+/*
+	public int cont() {
+		return cont(first);
+	}
+
+	private int cont(Node p) {
 		if(p==null) return 0;
-		return 1 + contador(p.next);
+		return 1 + cont(p.next);
 	}
-
+*/
 	public boolean soma() {
 		//soma dos dois ultimos numeros
-		if(contador()<=1) return false;
-		else {
-			float aux = first.next.data + first.data;
-			pop();
-			first.data = aux;
-		}
+		if(cont()<=1) return false;
+		else push(pop() + pop());
 		return true;
 	}
 
 	public boolean multiplicacao() {
 		//multiplicacao entre os dois ultimos numeros
-		if(contador()<=1) return false;
-		else {
-			float aux = first.next.data * first.data;
-			pop();
-			first.data = aux;
-		}
+		if(cont()<=1) return false;
+		else push(pop() * pop());
 		return true;
 	}
 
 	public boolean subtracao() {
 		//subtracao entre os dois ultimos numeros
-		if(contador()<=1) return false;
-		else {
-			float aux = first.next.data - first.data;
-			pop();
-			first.data = aux;
-		}
+		if(cont()<=1) return false;
+		else push(pop() - pop());
 		return true;
 	}
 
 	public boolean divisao() {
 		//divisao entre os dois ultimos numeros
-		if(contador()<=1) return false;
-		else {
-			float aux = first.next.data / first.data;
-			pop();
-			first.data = aux;
-		}
+		if(cont()<=1) return false;
+		else push(pop() / pop());
 		return true;
 	}
 
-	public float pop() {
+	public double pop() {
 		//descarta o ultimo resultado da calculadora
-		float aux = first.data;
+		double aux = first.data;
 		first = first.next;
+		cont--;
 		return aux;
 	}
 
 	public void dup() {
 		//repete o ultimo resultado
-		inteiro(first.data);
+		push(first.data);
 	}
 
 	public void swap() {
@@ -101,30 +101,24 @@ public class Calculadora {
 
 	public boolean sin() {
 		//calcula o seno do ultimo resultado
-		if(contador()==0) return false;
-		else {
-			float aux = (float) Math.sin(first.data);
-			first.data = aux;
-		}
+		if(cont()==0) return false;
+		else first.data = (double) Math.sin(first.data);
 		return true;
 	}
 
 	public boolean cos() {
 		//calcula o cosseno do ultimo resultado
-		if(contador()==0) return false;
-		else {
-			float aux = (float) Math.cos(first.data);
-			first.data = aux;
-		}
+		if(cont()==0) return false;
+		else first.data = (double) Math.cos(first.data);
 		return true;
 	}
 
 	public boolean atan() {
 		//calcula o arco-tangente usando dois numero das pilha
-		if(contador()==0) return false;
+		if(cont()==0) return false;
 		else {
-			float aux = (float) Math.atan2(first.next.data, first.data);
-			first.data = aux;
+			double aux = (double) Math.atan2(pop(), pop());
+			push(aux);
 		}
 		return true;
 	}
