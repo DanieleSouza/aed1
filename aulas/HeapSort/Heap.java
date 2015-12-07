@@ -57,3 +57,7 @@
  *
  *		Plotar gráfico no gnuplot
  */
+
+public class Heap {
+	
+}
