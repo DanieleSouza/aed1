@@ -6,6 +6,17 @@ public class Main {
     System.out.println("Olá!");
     BinaryTree tree = new BinaryTree();
 
+    BinaryTree b = new BinaryTree();
+    b.insere(5);
+    b.insere(2);
+    b.insere(7);
+    b.insere(1);
+
+    BinaryTree c = new BinaryTree();
+    c.insere(10);
+    c.insere(5);
+    c.insere(15);
+
     Scanner input = new Scanner(System.in);
 
     while(input.hasNext()) {
@@ -36,8 +47,23 @@ public class Main {
       if(temp.matches("pares")){
         System.out.println(tree.numPares());
       }
-      if(temp.matches("direita")){
-        System.out.println(tree.filhosDir());
+      if(temp.matches("ordem")){
+        tree.emOrdem();
+      }
+      if(temp.matches("reversa")){
+        tree.emOrdemReversa();
+      }
+      if(temp.matches("espelho")){
+        tree.espelho();
+      }
+      if(temp.matches("copy")){
+        tree.copy(b);
+      }
+      if(temp.matches("repetidos")){
+        System.out.println(tree.hasRep());
+      }
+      if(temp.matches("join")){
+        tree.join(b,c);
       }
 
       tree.imprime();

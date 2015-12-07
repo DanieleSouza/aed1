@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 // BinaryTree.java
 public class BinaryTree {
 
@@ -145,33 +147,111 @@ public class BinaryTree {
     return filhosDir(p.left) + filhosDir(p.right);
   }
 
+  public void emOrdem() {
+    emOrdem(root);
+  }
 
+  private void emOrdem(Node p) {
+    if(p == null) return;
+    emOrdem(p.left);
+    System.out.print(p.data + " ");
+    emOrdem(p.right);
+  }
 
+  public void emOrdemReversa() {
+    emOrdemReversa(root);
+  }
 
+  private void emOrdemReversa(Node p) {
+    if(p == null) return;
+    emOrdemReversa(p.right);
+    System.out.print(p.data + " ");
+    emOrdemReversa(p.left);
+  }
+
+  public void espelho() {
+    espelho(root);
+  }
+
+  private void espelho(Node p) {
+    if(p == null) return;
+    Node aux = p.left;
+    p.left = p.right;
+    p.right = aux;
+    espelho(p.left);
+    espelho(p.right);
+  }
+
+  public void copy(BinaryTree b) {
+    this.destroy();
+    copy(b, b.root);
+  }
+
+  private void copy(BinaryTree b, Node p) {
+    if(p == null) return;
+    this.insere(p.data);
+    copy(b, p.left);
+    copy(b, p.right);
+  }
+
+  public boolean hasRep() {
+    ArrayList<Integer> lista = new ArrayList<>();
+    return hasRep(root, lista);
+  }
+
+  private boolean hasRep(Node p, ArrayList<Integer> lista) {
+    if(p == null) return false;
+    if(lista.contains(p.data)) return true;
+    lista.add(p.data);
+    if(hasRep(p.left, lista)) return true;
+    if(hasRep(p.right, lista)) return true;
+    return false;
+  }
+
+  public void join(BinaryTree b, BinaryTree c) {
+    this.destroy();
+    ArrayList<Integer> lista = new ArrayList<>();
+    join(b, b.root, c, c.root, lista);
+  }
+
+  private void join(BinaryTree b, Node nb, BinaryTree c, Node nc, ArrayList<Integer> lista) {
+    if(nb == null) return;
+    if(!lista.contains(nb.data)) {
+      this.insere(nb.data);
+      lista.add(nb.data);
+    }
+    if(nc == null) return;
+    if(!lista.contains(nc.data)) {
+      this.insere(nc.data);
+      lista.add(nc.data);
+    }
+    join(b, nb.left, c, nc.left, lista);
+    join(b, nb.right, c, nc.right, lista);
+  }
 
 
   //max
 
-  public void destroy( ) {
+  public void destroy() {
     root = destroy( root );
   }
 
-  private Node destroy( Node n ) {
+  private Node destroy(Node n) {
     if(n == null)return n;          
-    n.right = destroy (n.right);
-    n.left = destroy (n.left);
+    n.right = destroy(n.right);
+    n.left = destroy(n.left);
     System.out.println(n.data + ": AAAAAAH!");
     return null;
   }
 
-  public int profundidade(){
+  public int profundidade() {
      return profundidade(root, 0) - 1;
   }
   
-  private int profundidade( Node n, int p){
-      if( n == null) return p;
-      int x = profundidade( n.right, p+1);
-      int y = profundidade( n.left, p+1);
+  private int profundidade(Node n, int p) {
+      if(n == null) return p;
+      int x = profundidade(n.right, p+1);
+      int y = profundidade(n.left, p+1);
       if(x > y) return x;
       return y;
   }
